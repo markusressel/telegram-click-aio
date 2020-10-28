@@ -1,11 +1,10 @@
-# telegram-click-aio [![Contributors](https://img.shields.io/github/contributors/markusressel/telegram-click-aio.svg)](https://github.com/markusressel/telegram-click-aio/graphs/contributors) [![MIT License](https://img.shields.io/github/license/markusressel/telegram-click-aio.svg)](/LICENSE) ![Code Size](https://img.shields.io/github/languages/code-size/markusressel/telegram-click-aio.svg) [![Latest Version](https://badge.fury.io/py/telegram-click-aio.svg)](https://pypi.org/project/telegram-click-aio/) [![Build Status](https://travis-ci.org/markusressel/telegram-click-aio.svg?branch=master)](https://travis-ci.org/markusressel/telegram-click-aio)
+# telegram-click-aio [![Contributors](https://img.shields.io/github/contributors/markusressel/telegram-click-aio.svg)](https://github.com/markusressel/telegram-click-aio/graphs/contributors) [![MIT License](https://img.shields.io/github/license/markusressel/telegram-click-aio.svg)](/LICENSE) [![Code Climate](https://codeclimate.com/github/markusressel/telegram-click-aio.svg)](https://codeclimate.com/github/markusressel/telegram-click-aio) ![Code Size](https://img.shields.io/github/languages/code-size/markusressel/telegram-click-aio.svg) [![Latest Version](https://badge.fury.io/py/telegram-click-aio.svg)](https://pypi.org/project/telegram-click-aio/)
 
 [Click](https://github.com/pallets/click/) 
 inspired command-line interface creation toolkit for 
-[aiogram](https://github.com/aiogram/aiogram).
+[aiogram](https://github.com/aiogram/aiogram), optimized for asyncio.
 
-For a [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) compatible variant
-have a look at [telegram-click](https://github.com/markusressel/telegram-click)!
+Note that this library can **only** be used with asyncio. If you are looking for a non-asyncio and [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) compatible variant have a look at [telegram-click](https://github.com/markusressel/telegram-click)!
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/markusressel/telegram-click/master/screenshots/demo1.png" width="400"> <img src="https://raw.githubusercontent.com/markusressel/telegram-click/master/screenshots/demo2.png" width="400"> 
@@ -54,7 +53,7 @@ class MyBot:
     [...]
     
     @command(name='start', description='Start bot interaction')
-    def _start_command_callback(self, message: Message):
+    async def _start_command_callback(self, message: Message):
         # do something
         pass
         
@@ -67,7 +66,7 @@ class MyBot:
                           validator=lambda x: x > 0,
                           example='25')
              ])
-    def _age_command_callback(self, message: Message, age: int):
+    async def _age_command_callback(self, message: Message, age: int):
         context.bot.send_message(message.chat.id, "New age: {}".format(age))
 ```
 
@@ -134,7 +133,7 @@ from telegram_click_aio.permission import GROUP_ADMIN
 @command(name='permission', 
          description='Needs permission',
          permissions=GROUP_ADMIN)
-def _permission_command_callback(self, message: Message):
+async def _permission_command_callback(self, message: Message):
 ```
 
 Multiple permissions can be combined using `&`, `|` and `~` (not) operators.
@@ -170,13 +169,13 @@ from telegram_click_aio.permission.base import Permission
 from telegram_click_aio.permission import GROUP_ADMIN
 
 class MyPermission(Permission):
-    def evaluate(self, message: Message) -> bool:
+    async def evaluate(self, message: Message) -> bool:
         from_user = message.from_user
         return from_user.id in [12345, 32435]
         
 @command(name='permission', description='Needs permission',
          permissions=MyPermission() & GROUP_ADMIN)
-def _permission_command_callback(self, message: Message):
+async def _permission_command_callback(self, message: Message):
 ```
 
 ### Show "Permission denied" message
@@ -213,7 +212,7 @@ from telegram_click_aio.permission import NOBODY
          description="List commands supported by this bot.",
          permissions=NOBODY,
          command_target=CommandTarget.UNSPECIFIED | CommandTarget.SELF)
-def _unknown_command_callback(self, message: Message):
+async def _unknown_command_callback(self, message: Message):
 ```
 
 You can combine `CommandTarget`'s using logical operators like in the 
@@ -225,7 +224,7 @@ In rare cases it can be useful to hide a command from the help output.
 To do this you can use the `hidden` parameter on the `@command` decorator
 by either passing `True` or `False`, or a callable like f.ex. this one:
 ```python
-def hide_whois_if_admin(message: Message):
+async def hide_whois_if_admin(message: Message):
     user_id = message.from_user.id
     return user_id not in [123456]
 ```
