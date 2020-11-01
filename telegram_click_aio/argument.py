@@ -155,7 +155,7 @@ class Selection(Argument):
     Convenience class for a command argument based on a predefined selection of allowed values
     """
 
-    def __init__(self, name: str, description: str, allowed_values: [any], type: type = str, converter: callable = None,
+    def __init__(self, name: str or [str], description: str, allowed_values: [any], type: type = str, converter: callable = None,
                  optional: bool = None, default: any = None):
         """
         Constructor
