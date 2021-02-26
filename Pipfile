@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 aiogram = ">=2.10.0"
 typing_extensions = "*"
-aiohttp = "==3.6.2"
+aiohttp = "==3.7.4"
 emoji = "*"
 
 [dev-packages]
