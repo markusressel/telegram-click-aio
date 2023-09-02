@@ -44,6 +44,7 @@ Then annotate your command handler functions with the `@command` decorator
 of this library:
 
 ```python
+from aiogram import Bot
 from aiogram.types import Message
 from telegram_click_aio.decorator import command
 from telegram_click_aio.argument import Argument
@@ -66,8 +67,8 @@ class MyBot:
                           validator=lambda x: x > 0,
                           example='25')
              ])
-    async def _age_command_callback(self, message: Message, age: int):
-        context.bot.send_message(message.chat.id, "New age: {}".format(age))
+    async def _age_command_callback(self, bot: Bot, message: Message, age: int):
+        await bot.send_message(message.chat.id, "New age: {}".format(age))
 ```
 
 ## Arguments

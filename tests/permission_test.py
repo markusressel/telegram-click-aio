@@ -43,7 +43,7 @@ def _create_message_mock(chat_id: int = -12345678, chat_type: str = "private", m
     """
     import aiogram
 
-    message = lambda: None  # type: Message
+    message = lambda: None  # type: aiogram.types.Message
 
     user = aiogram.types.User(
         id=user_id,
@@ -58,10 +58,9 @@ def _create_message_mock(chat_id: int = -12345678, chat_type: str = "private", m
     message = aiogram.types.Message(
         message_id=message_id,
         date=date,
+        chat=chat,
+        from_user=user,
     )
-
-    message.from_user = user
-    message.chat = chat
 
     return message
 

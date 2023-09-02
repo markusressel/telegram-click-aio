@@ -20,9 +20,12 @@
 import asyncio
 import logging
 import os
+from typing import Callable
 
 from aiogram import Bot, Dispatcher
-from aiogram.types import Message, ParseMode
+from aiogram.enums.parse_mode import ParseMode
+from aiogram.filters import Command
+from aiogram.types import Message
 
 from telegram_click_aio import generate_command_list
 from telegram_click_aio.argument import Argument, Flag
@@ -30,6 +33,7 @@ from telegram_click_aio.decorator import command
 from telegram_click_aio.error_handler import ErrorHandler
 from telegram_click_aio.permission import GROUP_ADMIN, USER_ID, USER_NAME, NOBODY
 from telegram_click_aio.permission.base import Permission
+from telegram_click_aio.util import send_message
 
 logging.getLogger("telegram_click_aio").setLevel(logging.DEBUG)
 
@@ -51,7 +55,7 @@ class MyErrorHandler(ErrorHandler):
         bot = message.bot
         chat_id = message.chat.id
 
-        text = "YOU SHALL NOT PASS! :hand::mage:"
+        text = "YOU SHALL NOT PASS! :raised_hand::mage:"
 
         from telegram_click_aio.util import send_message
         await send_message(bot, chat_id=chat_id,
@@ -85,27 +89,26 @@ class MyBot:
         This means filling the url pool and listening for messages.
         """
         bot = Bot(token=os.environ.get("TELEGRAM_BOT_KEY"))
-        me = await bot.get_me()
-        me.username
         try:
-            dispatcher = Dispatcher(bot=bot)
+            dispatcher = Dispatcher()
             await self._setup_message_handlers(dispatcher)
-            await dispatcher.start_polling()
+            await dispatcher.start_polling(bot)
         finally:
             await bot.close()
 
     async def _setup_message_handlers(self, dispatcher: Dispatcher):
-        handlers = [
+        handlers: list[tuple[Callable, list[str]]] = [
             (self._unknown_command_callback, ['help', 'h']),
             (self._start_command_callback, ['start']),
             (self._whois_command_callback, ['whois']),
             (self._name_command_callback, ['name', 'n']),
             (self._age_command_callback, ['age', 'a']),
             (self._children_command_callback, ['children', 'c']),
-            (self._unknown_command_callback, None),
         ]
         for handler in handlers:
-            dispatcher.register_message_handler(handler[0], commands=handler[1])
+            filters_arg = Command(*handler[1], ignore_case=True)
+            dispatcher.message.register(handler[0], filters_arg)
+        dispatcher.message.register(self._unknown_command_callback)
 
     async def _unknown_command_callback(self, message: Message):
         await self._send_command_list(message)
@@ -128,14 +131,14 @@ class MyBot:
         bot = message.bot
         chat_id = message.chat.id
         text = message.from_user.id
-        await bot.send_message(chat_id, text, parse_mode=ParseMode.MARKDOWN)
+        await send_message(bot, chat_id, f"{text}", reply_to=message.message_id, parse_mode=ParseMode.MARKDOWN)
 
     @staticmethod
     async def _send_command_list(message: Message):
         bot = message.bot
         chat_id = message.chat.id
         text = await generate_command_list(message)
-        await bot.send_message(chat_id, text, parse_mode=ParseMode.MARKDOWN)
+        await send_message(bot, chat_id, text, parse_mode=ParseMode.MARKDOWN)
 
     @command(name=['name', 'n'],
              description='Get/Set a name',
@@ -165,7 +168,7 @@ class MyBot:
             message = 'New: {}'.format(self.name)
         message += '\n' + 'Flag is: {}'.format(flag)
         message += '\n' + 'Flag2 is: {}'.format(flag2)
-        await bot.send_message(chat_id, message)
+        await send_message(bot, chat_id, message)
 
     @command(name=['age', 'a'],
              description='Set age',
@@ -180,7 +183,7 @@ class MyBot:
     async def _age_command_callback(self, message: Message, age: int):
         bot = message.bot
         chat_id = message.chat.id
-        await bot.send_message(chat_id, 'New age: {}'.format(age))
+        await send_message(bot, chat_id, 'New age: {}'.format(age))
 
     @command(name=['children', 'c'],
              description='Set children amount',
@@ -197,10 +200,10 @@ class MyBot:
         bot = message.bot
         chat_id = message.chat.id
         if amount is None:
-            await bot.send_message(chat_id, 'Current: {}'.format(self.child_count))
+            await send_message(bot, chat_id, 'Current: {}'.format(self.child_count))
         else:
             self.child_count = amount
-            await bot.send_message(chat_id, 'New: {}'.format(amount))
+            await send_message(bot, chat_id, 'New: {}'.format(amount))
 
 
 if __name__ == '__main__':

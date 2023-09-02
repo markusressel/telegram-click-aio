@@ -4,9 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-aiogram = ">=2.10.0"
+aiogram = ">=3.0.0"
 typing_extensions = "*"
-aiohttp = "==3.8.5"
+aiohttp = ">=3.8.5"
 emoji = "*"
 
 [dev-packages]

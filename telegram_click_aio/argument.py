@@ -77,7 +77,7 @@ class Argument:
     def name(self) -> str:
         return self.names[0]
 
-    def parse_arg_value(self, arg: str) -> any:
+    def parse_arg_value(self, arg: str or None) -> any:
         """
         Tries to parse the given value
         :param arg: the string value
