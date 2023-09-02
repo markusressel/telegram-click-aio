@@ -1,4 +1,5 @@
-from aiogram.types import Message, ParseMode
+from aiogram.types import Message
+from aiogram.enums.parse_mode import ParseMode
 
 from telegram_click_aio.permission.base import Permission
 from telegram_click_aio.util import send_message
