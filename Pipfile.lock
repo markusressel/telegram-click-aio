@@ -26,12 +26,12 @@
         },
         "aiogram": {
             "hashes": [
-                "sha256:dc43bfbe68c736cca48d91ffbc55a397df24b56c332206af850965619689beca",
-                "sha256:f500d4b309e3cc08a87ae5a053b229199034f382925de00aa2ed005d5e25d575"
+                "sha256:b8076c14d5aed03db47fd14595e24ee19cb481b77105d7962c75cd64e6bbca4f",
+                "sha256:eb033f425c792bdf1000d3ee2ef05c70731b8264f98885ce79d2cd2d7a92e80f"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==3.10.0"
+            "version": "==3.11.0"
         },
         "aiohappyeyeballs": {
             "hashes": [
