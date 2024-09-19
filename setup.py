@@ -77,7 +77,9 @@ setup(
         DEVELOPMENT_STATUS,
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.8'
+        'Programming Language :: Python :: 3.10'
+        'Programming Language :: Python :: 3.11'
+        'Programming Language :: Python :: 3.12'
     ],
     install_requires=locked_requirements('default'),
     tests_require=locked_requirements('develop'),
