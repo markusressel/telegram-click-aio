@@ -26,20 +26,20 @@
         },
         "aiogram": {
             "hashes": [
-                "sha256:01bffbf43d6fb4a31e3c668a601bc7e71c2cf3919bd831ba6c179ef86034c2f4",
-                "sha256:251738331107ce2a679a901354b1409b7544d9f030d8092dcc68f2bb3bb0c467"
+                "sha256:429883a419751bfebeeafdc74804807d0abd5c9879ab0f06c045130de4752605",
+                "sha256:ea2a2fbd11e4fffbba14a2081eb6322482ae569c6348618de5f7b6b41b52384d"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.9'",
-            "version": "==3.17.0"
+            "version": "==3.18.0"
         },
         "aiohappyeyeballs": {
             "hashes": [
-                "sha256:5fdd7d87889c63183afc18ce9271f9b0a7d32c2303e394468dd45d514a757745",
-                "sha256:a980909d50efcd44795c4afeca523296716d50cd756ddca6af8c65b996e27de8"
+                "sha256:147ec992cf873d74f5062644332c539fcd42956dc69453fe5204195e560517e1",
+                "sha256:9b05052f9042985d32ecbe4b59a77ae19c006a78f1344d7fdad69d28ded3d0b0"
             ],
-            "markers": "python_version >= '3.8'",
-            "version": "==2.4.4"
+            "markers": "python_version >= '3.9'",
+            "version": "==2.4.6"
         },
         "aiohttp": {
             "hashes": [
@@ -155,11 +155,11 @@
         },
         "certifi": {
             "hashes": [
-                "sha256:1275f7a45be9464efc1173084eaa30f866fe2e47d389406136d332ed4967ec56",
-                "sha256:b650d30f370c2b724812bee08008be0c4163b163ddaec3f2546c1caf65f191db"
+                "sha256:3d5da6925056f6f18f119200434a4780a94263f10d1c21d032a6f6b2baa20651",
+                "sha256:ca78db4565a652026a4db2bcdf68f2fb589ea80d0be70e03929ed730746b84fe"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==2024.12.14"
+            "version": "==2025.1.31"
         },
         "emoji": {
             "hashes": [
@@ -472,11 +472,11 @@
         },
         "pydantic": {
             "hashes": [
-                "sha256:597e135ea68be3a37552fb524bc7d0d66dcf93d395acd93a00682f1efcb8ee3d",
-                "sha256:82f12e9723da6de4fe2ba888b5971157b3be7ad914267dea8f05f82b28254f06"
+                "sha256:427d664bf0b8a2b34ff5dd0f5a18df00591adcee7198fbd71981054cef37b584",
+                "sha256:ca5daa827cce33de7a42be142548b0096bf05a7e7b365aebfa5f8eeec7128236"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==2.10.4"
+            "version": "==2.10.6"
         },
         "pydantic-core": {
             "hashes": [
