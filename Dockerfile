@@ -1,6 +1,6 @@
 # Docker image for telegram-click-aio (@PythonTelegramClickBot)
 
-FROM python:3.12-slim-bookworm
+FROM python:3.14-slim-bookworm
 #-alpine
 
 WORKDIR /app
